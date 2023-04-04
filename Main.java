@@ -1,55 +1,34 @@
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
+import java.util.Random;
 
 public class Main {
 
-public static void main(String[] args) throws IOException {
+public static void main(String[] args)
 
-				Map<String, Integer> wordCounts = new HashMap<>();
-		BufferedReader bufferedReader = new BufferedReader(new FileReader("src//SDLC.txt"));
+{
 
-		String line;
+Random rand = new Random();
 
-		while ((line = bufferedReader.readLine()) != null) {
-			
-		for (String word : words) {
+int[] arr = new int[200000000];
 
-				word = word.trim();
+for (int i = 0; i < arr.length; i++) {
 
-				if (word.length() > 0) {
-
-					if (wordCounts.containsKey(word)) {
-						wordCounts.put(word, wordCounts.get(word) + 1);
-					} else {
-						wordCounts.put(word, 1);
-					}
-				}
-			}
-		}
-
-		
-		System.out.printf("%-20s%15s\n", "Word", "Frequency");
-
-		System.out.printf("%-20s%15s\n", "====", "=========");
-		
-		Map<String, Integer> sortedWordCounts = wordCounts.entrySet().stream()
-				.sorted(Collections.reverseOrder(Entry.comparingByValue()))
-				.collect(Collectors.toMap(Entry::getKey, Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
-
-		for (Map.Entry<String, Integer> entry : sortedWordCounts.entrySet()) {
-
-			System.out.printf("%-20s%10s\n", entry.getKey(), entry.getValue());
-		}
-
-		bufferedReader.close();
-	}
+arr[i] = rand.nextInt(10) + 1;
 
 }
+
+long start = System.currentTimeMillis();
+
+System.out.println(Sum.sum(arr));
+
+System.out.println("Single:" + (System.currentTimeMillis() - start));
+
+start = System.currentTimeMillis();
+
+System.out.println(Sum.parallelSum(arr));
+
+System.out.println("Parallel: " + (System.currentTimeMillis() - start));
+
+}
+
+}
+
